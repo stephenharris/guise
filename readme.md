@@ -3,7 +3,7 @@
 Guise is a WordPress framework for modifying the UI, it handles the behind-the-scenes 
 interactions with WordPress so that you can focus on writing OOP code.
 
-**This is early on in development, contributions are wellcome - see the wish list below!**
+**This is early on in development, contributions are welcome - see the wish list below!**
 
 
 ## Example
@@ -31,6 +31,7 @@ Then register your column:
 ```
 $column_view = new My_Foo_Bar_Column_View();
 $controller new Post_Type_Column_Controller()
+
 $controller->register( $column_view, 'foo-bar' );
 ```
 
@@ -38,7 +39,7 @@ You can also specify the index you want the column to appear in:
 
 ```
 //Adds to the second index (i.e. it appears as the third column)
-$controller->register( $column_view, 'foo-bar', 2 );
+$controller->register( $column_view, 'foobar', 2 );
 ```
 
 Please note that later columns can shift it out of place.
