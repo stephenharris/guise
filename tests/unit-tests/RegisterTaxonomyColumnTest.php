@@ -72,5 +72,22 @@ class RegisterTaxonomyColumnTest extends BrainMonkeyWpTestCase {
 
     }
 
+    function testRegisterSortableTaxonomyColumn() {
+
+        $sortableTaxonomyView = $this->getMockBuilder('\stephenharris\guise\Sortable_Taxonomy_Column_View')->getMock();
+
+        $controller = new Taxonomy_Column_Controller();
+
+        Filters::expectAdded('manage_edit-my-taxonomy_columns')->once()
+            ->with(array( $controller, '_maybe_add_column' ));
+        Filters::expectAdded('manage_edit-my-taxonomy_sortable_columns')->once()
+            ->with(array( $controller, '_maybe_add_sortable_column' ));
+        Filters::expectAdded('manage_my-taxonomy_custom_column')->once()
+            ->with(array( $controller, '_maybe_render_column_cell' ), 10, 3 );
+
+        $controller->register( $sortableTaxonomyView, 'my-taxonomy' );
+
+    }
+
 
 }

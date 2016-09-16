@@ -14,6 +14,9 @@ class Post_Type_Column_Controller {
 		$this->column_view_store->store( $column_view, $post_type, $index );
 		add_filter( "manage_{$post_type}_posts_columns", array( $this, '_maybe_add_column' ) );
 		add_action( "manage_{$post_type}_posts_custom_column", array( $this, '_maybe_print_column_cell' ), 10, 3 );
+		if ( $column_view instanceof Sortable_Column_View ) {
+			add_filter( "manage_{$post_type}_posts_sortable_columns", array( $this, '_maybe_add_sortable_column' ) );
+		}
 	}
 
 	/**
@@ -27,6 +30,21 @@ class Post_Type_Column_Controller {
 
 		$post_type = $matches[1];
 		$columns = $this->column_view_store->insert_columns_for_object( $post_type, $columns );
+
+		return $columns;
+	}
+
+	/**
+	 * @private
+	 */
+	public function _maybe_add_sortable_column( $columns ) {
+		$hook = current_filter();
+		if ( ! preg_match( '/manage_([a-z_-]{1,32})_posts_sortable_columns/', $hook, $matches ) ) {
+			return $columns;
+		}
+
+		$post_type = $matches[1];
+		$columns = $this->column_view_store->insert_sortable_columns_for_object( $post_type, $columns );
 
 		return $columns;
 	}

@@ -35,6 +35,20 @@ class Column_View_Store {
         return $columns;
     }
 
+    public function insert_sortable_columns_for_object( $slug, $sortable_columns ) {
+
+        if ( ! $this->has_columns_for_object( $slug ) ) {
+            return $sortable_columns;
+        }
+
+        foreach( $this->columns[$slug] as $column_key => $column_properties ) {
+            if ( $column_properties['column'] instanceof Sortable_Column_View ) {
+                $sortable_columns[$column_key] = $column_properties['column']->sort_by();
+            }
+        }
+        return $sortable_columns;
+    }
+
     public function get_column_view( $slug, $column_key ){
 
         if ( ! $this->has_column_for_object( $slug, $column_key ) ) {

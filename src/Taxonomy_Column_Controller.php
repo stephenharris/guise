@@ -14,6 +14,9 @@ class Taxonomy_Column_Controller {
 		$this->column_view_store->store( $column_view, $taxonomy, $index );
 		add_filter( "manage_edit-{$taxonomy}_columns", array( $this, '_maybe_add_column' ) );
 		add_filter( "manage_{$taxonomy}_custom_column", array( $this, '_maybe_render_column_cell' ), 10, 3 );
+		if ( $column_view instanceof Sortable_Column_View ) {
+			add_filter( "manage_edit-{$taxonomy}_sortable_columns", array( $this, '_maybe_add_sortable_column' ) );
+		}
 	}
 
 	/**
@@ -27,6 +30,21 @@ class Taxonomy_Column_Controller {
 
 		$taxonomy = $matches[1];
 		$columns = $this->column_view_store->insert_columns_for_object( $taxonomy, $columns );
+
+		return $columns;
+	}
+
+	/**
+	 * @private
+	 */
+	public function _maybe_add_sortable_column( $columns ) {
+		$hook = current_filter();
+		if ( ! preg_match( '/manage_edit-([a-z_-]{1,32})_sortable_columns/', $hook, $matches ) ) {
+			return $columns;
+		}
+
+		$taxonomy = $matches[1];
+		$columns = $this->column_view_store->insert_sortable_columns_for_object( $taxonomy, $columns );
 
 		return $columns;
 	}

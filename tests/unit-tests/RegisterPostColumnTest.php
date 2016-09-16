@@ -9,7 +9,6 @@ class RegisterPostColumnTest extends BrainMonkeyWpTestCase {
     function testRegisterPostTypeColumn() {
 
         $mockView = $this->getMockBuilder('\stephenharris\guise\Post_Type_Column_View')->getMock();
-        $mockView->method('label')->willReturn( 'Column label' );
 
         $controller = new Post_Type_Column_Controller();
 
@@ -25,7 +24,6 @@ class RegisterPostColumnTest extends BrainMonkeyWpTestCase {
     function testRegisterPostTypeColumnMultipleTimes() {
 
         $mockView = $this->getMockBuilder('\stephenharris\guise\Post_Type_Column_View')->getMock();
-        $mockView->method('label')->willReturn( 'Column label' );
 
         $controller = new Post_Type_Column_Controller();
 
@@ -43,7 +41,6 @@ class RegisterPostColumnTest extends BrainMonkeyWpTestCase {
     function testRegisterPostTypeColumnMultipleTimesDifferentPostType() {
 
         $mockView = $this->getMockBuilder('\stephenharris\guise\Post_Type_Column_View')->getMock();
-        $mockView->method('label')->willReturn( 'Column label' );
 
         $controller = new Post_Type_Column_Controller();
 
@@ -59,6 +56,23 @@ class RegisterPostColumnTest extends BrainMonkeyWpTestCase {
 
         $controller->register( $mockView, 'my-post-type', -1 );
         $controller->register( $mockView, 'another-post-type', -1 );
+
+    }
+
+    function testRegisterSortablePostTypeColumn() {
+
+        $sortablePostView = $this->getMockBuilder('\stephenharris\guise\Sortable_Post_Type_Column_View')->getMock();
+
+        $controller = new Post_Type_Column_Controller();
+
+        Filters::expectAdded('manage_my-post-type_posts_columns')->once()
+            ->with(array( $controller, '_maybe_add_column' ));
+        Filters::expectAdded('manage_my-post-type_posts_sortable_columns')->once()
+            ->with(array( $controller, '_maybe_add_sortable_column' ));
+        Actions::expectAdded('manage_my-post-type_posts_custom_column')->once()
+            ->with(array( $controller, '_maybe_print_column_cell' ), 10, 3 );
+
+        $controller->register( $sortablePostView, 'my-post-type', -1 );
 
     }
 
