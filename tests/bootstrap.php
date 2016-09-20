@@ -1,5 +1,7 @@
 <?php
 
+define( 'TEST_DATA', __DIR__ . '/data' );
+
 require_once 'vendor/autoload.php';
 
 require_once 'assertions/PHPUnit_Framework_Constraint_NthElementOfArrayHasValue.php';
