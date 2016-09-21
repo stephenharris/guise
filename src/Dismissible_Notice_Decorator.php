@@ -1,6 +1,6 @@
 <?php
 
-namespace stephenharris\guise;
+namespace StephenHarris\Guise;
 
 class Dismissible_Notice_Decorator extends Base_Notice_View {
 

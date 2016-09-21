@@ -1,6 +1,6 @@
 <?php
 
-namespace stephenharris\guise;
+namespace StephenHarris\Guise;
 
 interface Notice_View {
 

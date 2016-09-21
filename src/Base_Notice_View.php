@@ -1,6 +1,6 @@
 <?php
 
-namespace stephenharris\guise;
+namespace StephenHarris\Guise;
 
 abstract class Base_Notice_View implements Notice_View {
 

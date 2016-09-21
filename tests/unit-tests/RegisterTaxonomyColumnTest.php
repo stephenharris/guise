@@ -1,5 +1,5 @@
 <?php
-use stephenharris\guise\Taxonomy_Column_Controller;
+use StephenHarris\Guise\Taxonomy_Column_Controller;
 use MonkeryTestCase\BrainMonkeyWpTestCase;
 use Brain\Monkey\WP\Filters;
 
@@ -7,7 +7,7 @@ class RegisterTaxonomyColumnTest extends BrainMonkeyWpTestCase {
 
     function testRegisterTaxonomyColumn() {
 
-        $mockView = $this->getMockBuilder('\stephenharris\guise\Taxonomy_Column_View')->getMock();
+        $mockView = $this->getMockBuilder('\StephenHarris\Guise\Taxonomy_Column_View')->getMock();
         $mockView->method('label')->willReturn( 'Column label' );
 
         $controller = new Taxonomy_Column_Controller();
@@ -26,7 +26,7 @@ class RegisterTaxonomyColumnTest extends BrainMonkeyWpTestCase {
 
     function testRegisterTaxonomyColumnMultipleTimes() {
 
-        $mockView = $this->getMockBuilder('\stephenharris\guise\Taxonomy_Column_View')->getMock();
+        $mockView = $this->getMockBuilder('\StephenHarris\Guise\Taxonomy_Column_View')->getMock();
         $mockView->method('label')->willReturn( 'Column label' );
 
         $controller = new Taxonomy_Column_Controller();
@@ -46,7 +46,7 @@ class RegisterTaxonomyColumnTest extends BrainMonkeyWpTestCase {
 
     function testRegisterTaxonomyColumnMultipleTimesDifferentTaxononmy() {
 
-        $mockView = $this->getMockBuilder('\stephenharris\guise\Taxonomy_Column_View')->getMock();
+        $mockView = $this->getMockBuilder('\StephenHarris\Guise\Taxonomy_Column_View')->getMock();
         $mockView->method('label')->willReturn( 'Column label' );
 
         $controller = new Taxonomy_Column_Controller();
@@ -74,7 +74,7 @@ class RegisterTaxonomyColumnTest extends BrainMonkeyWpTestCase {
 
     function testRegisterSortableTaxonomyColumn() {
 
-        $sortableTaxonomyView = $this->getMockBuilder('\stephenharris\guise\Sortable_Taxonomy_Column_View')->getMock();
+        $sortableTaxonomyView = $this->getMockBuilder('\StephenHarris\Guise\Sortable_Taxonomy_Column_View')->getMock();
 
         $controller = new Taxonomy_Column_Controller();
 

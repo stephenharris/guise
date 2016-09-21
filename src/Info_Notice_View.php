@@ -1,6 +1,6 @@
 <?php
 
-namespace stephenharris\guise;
+namespace StephenHarris\Guise;
 
 class Info_Notice_View extends Base_Notice_View {
 

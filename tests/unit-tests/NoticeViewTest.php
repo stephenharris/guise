@@ -1,9 +1,9 @@
 <?php
 use stephenharris\PHPUnit\PHPUnit_Framework_Constraint_HTML_Equals;
-use stephenharris\guise\Info_Notice_View;
-use stephenharris\guise\Error_Notice_View;
-use stephenharris\guise\Success_Notice_View;
-use stephenharris\guise\Dismissible_Notice_Decorator;
+use StephenHarris\Guise\Info_Notice_View;
+use StephenHarris\Guise\Error_Notice_View;
+use StephenHarris\Guise\Success_Notice_View;
+use StephenHarris\Guise\Dismissible_Notice_Decorator;
 use MonkeryTestCase\BrainMonkeyWpTestCase;
 use Brain\Monkey\WP\Actions;
 

@@ -14,7 +14,7 @@ To add a column to the 'foobar' post type, first define your column view
 it must implement the `Post_Type_Column_View` interface.
 
 ```
-use stephenharris\guise\Post_Type_Column_View;
+use StephenHarris\Guise\Post_Type_Column_View;
 
 My_Foo_Bar_Column_View implements Post_Type_Column_View {
 
@@ -52,8 +52,8 @@ To add a sortable column your column view class must implement the
 `Post_Type_Column_View` and `Sortable_Column_View` interfaces.
 
 ```
-use stephenharris\guise\Post_Type_Column_View;
-use stephenharris\guise\Sortable_Column_View;
+use StephenHarris\Guise\Post_Type_Column_View;
+use StephenHarris\Guise\Sortable_Column_View;
 
 My_Sortable_Foo_Bar_Column_View implements Post_Type_Column_View, Sortable_Column_View {
 

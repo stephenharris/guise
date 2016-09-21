@@ -1,5 +1,5 @@
 <?php
-use stephenharris\guise\Post_Type_Column_Controller;
+use StephenHarris\Guise\Post_Type_Column_Controller;
 use MonkeryTestCase\BrainMonkeyWpTestCase;
 use Brain\Monkey\Functions;
 
@@ -12,7 +12,7 @@ class RenderingPostTypeColumnTest extends BrainMonkeyWpTestCase {
     function setUp(){
         parent::setUp();
 
-        $mockView = $this->getMockBuilder('\stephenharris\guise\Post_Type_Column_View')->getMock();
+        $mockView = $this->getMockBuilder('\StephenHarris\Guise\Post_Type_Column_View')->getMock();
         $mockView->method('render')->will($this->returnCallback(function( $post ){
             return 'Post ID: ' . $post->ID;
         }));
@@ -24,7 +24,7 @@ class RenderingPostTypeColumnTest extends BrainMonkeyWpTestCase {
             return $mockPost;
         } );
 
-        $anotherMockView = $this->getMockBuilder('\stephenharris\guise\Post_Type_Column_View')->getMock();
+        $anotherMockView = $this->getMockBuilder('\StephenHarris\Guise\Post_Type_Column_View')->getMock();
         $anotherMockView->method('render')->will($this->returnValue('notthis'));
         $this->anotherColumnName = spl_object_hash( $anotherMockView );
 
