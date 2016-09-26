@@ -1,6 +1,6 @@
 <?php
 
-namespace StephenHarris\Guise;
+namespace StephenHarris\Guise\Columns;
 
 class Taxonomy_Column_Controller {
 

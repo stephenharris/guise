@@ -1,6 +1,6 @@
 <?php
 use stephenharris\PHPUnit\PHPUnit_Framework_Constraint_NthElementOfArrayHasValue;
-use StephenHarris\Guise\Taxonomy_Column_Controller;
+use StephenHarris\Guise\Columns\Taxonomy_Column_Controller;
 use MonkeryTestCase\BrainMonkeyWpTestCase;
 use Brain\Monkey\Functions;
 
@@ -9,7 +9,7 @@ class AddingTaxonomyColumnTest extends BrainMonkeyWpTestCase {
     function setUp()
     {
         parent::setUp();
-        $this->mockView = $this->getMockBuilder('\StephenHarris\Guise\Taxonomy_Column_View')->getMock();
+        $this->mockView = $this->getMockBuilder('\StephenHarris\Guise\Columns\Taxonomy_Column_View')->getMock();
         $this->mockView->method('label')->willReturn( 'Column label' );
 
         $this->existing_columns = array(
@@ -76,7 +76,7 @@ class AddingTaxonomyColumnTest extends BrainMonkeyWpTestCase {
 
     function testAddOnlyExpectedTaxonomyColumnHeader() {
 
-        $anotherMockView = $this->getMockBuilder('\StephenHarris\Guise\Taxonomy_Column_View')->getMock();
+        $anotherMockView = $this->getMockBuilder('\StephenHarris\Guise\Columns\Taxonomy_Column_View')->getMock();
         $anotherMockView->method('label')->willReturn( 'This should not appear' );
 
         $this->controller->register( $this->mockView, 'my-taxonomy', -1 );
@@ -104,7 +104,7 @@ class AddingTaxonomyColumnTest extends BrainMonkeyWpTestCase {
 
     function testAddMultipleColumns() {
 
-        $anotherMockView = $this->getMockBuilder('\StephenHarris\Guise\Taxonomy_Column_View')->getMock();
+        $anotherMockView = $this->getMockBuilder('\StephenHarris\Guise\Columns\Taxonomy_Column_View')->getMock();
         $anotherMockView->method('label')->willReturn( 'another column' );
 
         $this->controller->register( $this->mockView, 'my-taxonomy', -1 );

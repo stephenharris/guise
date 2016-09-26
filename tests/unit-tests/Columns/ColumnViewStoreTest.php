@@ -1,13 +1,13 @@
 <?php
 use stephenharris\PHPUnit\PHPUnit_Framework_Constraint_NthElementOfArrayHasValue;
-use StephenHarris\Guise\Column_View_Store;
+use StephenHarris\Guise\Columns\Column_View_Store;
 use MonkeryTestCase\BrainMonkeyWpTestCase;
 use Brain\Monkey\Functions;
 
 class ColumnViewStoreTest extends BrainMonkeyWpTestCase {
 
     function setUp(){
-        $this->stubView = $this->getMockBuilder('StephenHarris\Guise\Column_View')->getMock();
+        $this->stubView = $this->getMockBuilder('StephenHarris\Guise\Columns\Column_View')->getMock();
         $this->stubView->method('label')->willReturn('Column label');
 
         $this->store = new Column_View_Store();
@@ -77,11 +77,11 @@ class ColumnViewStoreTest extends BrainMonkeyWpTestCase {
 
     public function testColumnKeyNotExistView() {
         $this->store->store( $this->stubView, 'object-type', -1 );
-        $this->assertInstanceOf( 'StephenHarris\Guise\Null_Column_View' , $this->store->get_column_view( 'object-type', 'key-does-not-exist' ) );
+        $this->assertInstanceOf( 'StephenHarris\Guise\Columns\Null_Column_View' , $this->store->get_column_view( 'object-type', 'key-does-not-exist' ) );
     }
     public function testObjectTypeNotExistView() {
         $this->store->store( $this->stubView, 'object-type', -1 );
         $key = spl_object_hash( $this->stubView );
-        $this->assertInstanceOf( 'StephenHarris\Guise\Null_Column_View' , $this->store->get_column_view( 'object-does-not-exit', $key ) );
+        $this->assertInstanceOf( 'StephenHarris\Guise\Columns\Null_Column_View' , $this->store->get_column_view( 'object-does-not-exit', $key ) );
     }
 }

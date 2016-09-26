@@ -1,6 +1,6 @@
 <?php
 
-namespace StephenHarris\Guise;
+namespace StephenHarris\Guise\Columns;
 
 
 interface Taxonomy_Column_View extends Column_View {

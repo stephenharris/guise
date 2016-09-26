@@ -1,5 +1,5 @@
 <?php
-use StephenHarris\Guise\Notice_Controller;
+use StephenHarris\Guise\Notices\Notice_Controller;
 use MonkeryTestCase\BrainMonkeyWpTestCase;
 use Brain\Monkey\WP\Actions;
 
@@ -13,7 +13,7 @@ class RegisterNoticeTest extends BrainMonkeyWpTestCase {
     }
 
     function testRegisterNotices() {
-        $mockNoticeView = $this->getMockBuilder('\StephenHarris\Guise\Notice_View')->getMock();
+        $mockNoticeView = $this->getMockBuilder('\StephenHarris\Guise\Notices\Notice_View')->getMock();
 
         Actions::expectAdded('admin_notices')->once()->with(array( $this->controller, '_print_notices' ));
 
@@ -21,7 +21,7 @@ class RegisterNoticeTest extends BrainMonkeyWpTestCase {
     }
 
     function testRenderNotices() {
-        $mockNoticeView = $this->getMockBuilder('\StephenHarris\Guise\Notice_View')->getMock();
+        $mockNoticeView = $this->getMockBuilder('\StephenHarris\Guise\Notices\Notice_View')->getMock();
         $mockNoticeView->expects($this->once())->method('render')->will( $this->returnValue('<div class="notice notice-info">notice</div>') );;
 
         $this->expectOutputString( '<div class="notice notice-info">notice</div>' );
@@ -32,7 +32,7 @@ class RegisterNoticeTest extends BrainMonkeyWpTestCase {
     }
 
     function testRegisteringSameNoticeRendersOnlyOnceNotice() {
-        $mockNoticeView = $this->getMockBuilder('\StephenHarris\Guise\Notice_View')->getMock();
+        $mockNoticeView = $this->getMockBuilder('\StephenHarris\Guise\Notices\Notice_View')->getMock();
         $mockNoticeView->expects($this->once())->method('render')->will( $this->returnValue('<div class="notice notice-info">notice</div>') );
 
         $this->expectOutputString( '<div class="notice notice-info">notice</div>' );
@@ -44,10 +44,10 @@ class RegisterNoticeTest extends BrainMonkeyWpTestCase {
     }
 
     function testRenderingMultipleNotices() {
-        $mockNoticeView = $this->getMockBuilder('\StephenHarris\Guise\Notice_View')->getMock();
+        $mockNoticeView = $this->getMockBuilder('\StephenHarris\Guise\Notices\Notice_View')->getMock();
         $mockNoticeView->expects($this->once())->method('render')->will( $this->returnValue('<div class="notice notice-info">notice1</div>') );
 
-        $mockNoticeView2 = $this->getMockBuilder('\StephenHarris\Guise\Notice_View')->getMock();
+        $mockNoticeView2 = $this->getMockBuilder('\StephenHarris\Guise\Notices\Notice_View')->getMock();
         $mockNoticeView2->expects($this->once())->method('render')->will( $this->returnValue('<div class="notice notice-info">notice2</div>') );
 
         $this->expectOutputString( '<div class="notice notice-info">notice1</div><div class="notice notice-info">notice2</div>' );

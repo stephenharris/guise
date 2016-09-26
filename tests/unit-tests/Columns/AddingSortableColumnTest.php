@@ -1,6 +1,6 @@
 <?php
-use StephenHarris\Guise\Post_Type_Column_Controller;
-use StephenHarris\Guise\Taxonomy_Column_Controller;
+use StephenHarris\Guise\Columns\Post_Type_Column_Controller;
+use StephenHarris\Guise\Columns\Taxonomy_Column_Controller;
 use MonkeryTestCase\BrainMonkeyWpTestCase;
 use Brain\Monkey\Functions;
 
@@ -8,7 +8,7 @@ class AddingSortableTypeColumnTest extends BrainMonkeyWpTestCase {
 
     function testSortablePostTypeColumnAdded(){
 
-        $this->mockView = $this->getMockBuilder('\StephenHarris\Guise\Sortable_Post_Type_Column_View')->getMock();
+        $this->mockView = $this->getMockBuilder('\StephenHarris\Guise\Columns\Sortable_Post_Type_Column_View')->getMock();
         $this->mockView->method('sort_by')->willReturn( 'some_query_variable' );
 
         $this->controller = new Post_Type_Column_Controller();
@@ -26,7 +26,7 @@ class AddingSortableTypeColumnTest extends BrainMonkeyWpTestCase {
 
     function testSortableTaxonomyColumnAdded(){
 
-        $this->mockView = $this->getMockBuilder('\StephenHarris\Guise\Sortable_Taxonomy_Column_View')->getMock();
+        $this->mockView = $this->getMockBuilder('\StephenHarris\Guise\Columns\Sortable_Taxonomy_Column_View')->getMock();
         $this->mockView->method('sort_by')->willReturn( 'some_query_variable' );
 
         $this->controller = new Taxonomy_Column_Controller();

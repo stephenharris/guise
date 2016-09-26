@@ -1,6 +1,6 @@
 <?php
 use stephenharris\PHPUnit\PHPUnit_Framework_Constraint_NthElementOfArrayHasValue;
-use StephenHarris\Guise\Post_Type_Column_Controller;
+use StephenHarris\Guise\Columns\Post_Type_Column_Controller;
 use MonkeryTestCase\BrainMonkeyWpTestCase;
 use Brain\Monkey\Functions;
 
@@ -9,7 +9,7 @@ class AddingPostTypeColumnTest extends BrainMonkeyWpTestCase {
     function setUp()
     {
         parent::setUp();
-        $this->mockView = $this->getMockBuilder('\StephenHarris\Guise\Post_Type_Column_View')->getMock();
+        $this->mockView = $this->getMockBuilder('\StephenHarris\Guise\Columns\Post_Type_Column_View')->getMock();
         $this->mockView->method('label')->willReturn( 'Column label' );
 
         $this->existing_columns = array(
@@ -38,7 +38,7 @@ class AddingPostTypeColumnTest extends BrainMonkeyWpTestCase {
 
     function testAddPostTypeColumnHeaderAtEnd() {
 
-        $this->mockView = $this->getMockBuilder('\StephenHarris\Guise\Post_Type_Column_View')->getMock();
+        $this->mockView = $this->getMockBuilder('\StephenHarris\Guise\Columns\Post_Type_Column_View')->getMock();
         $this->mockView->method('label')->willReturn( 'Column label' );
 
         $this->controller = new Post_Type_Column_Controller();
@@ -82,7 +82,7 @@ class AddingPostTypeColumnTest extends BrainMonkeyWpTestCase {
 
     function testAddOnlyExpectedPost_TypeColumnHeader() {
 
-        $anotherMockView = $this->getMockBuilder('\StephenHarris\Guise\Post_Type_Column_View')->getMock();
+        $anotherMockView = $this->getMockBuilder('\StephenHarris\Guise\Columns\Post_Type_Column_View')->getMock();
         $anotherMockView->method('label')->willReturn( 'This should not appear' );
 
         $this->controller->register( $this->mockView, 'my-post-type', -1 );
@@ -110,7 +110,7 @@ class AddingPostTypeColumnTest extends BrainMonkeyWpTestCase {
 
     function testAddMultipleColumns() {
 
-        $anotherMockView = $this->getMockBuilder('\StephenHarris\Guise\Post_Type_Column_View')->getMock();
+        $anotherMockView = $this->getMockBuilder('\StephenHarris\Guise\Columns\Post_Type_Column_View')->getMock();
         $anotherMockView->method('label')->willReturn( 'another column' );
 
         $this->controller->register( $this->mockView, 'my-post-type', -1 );

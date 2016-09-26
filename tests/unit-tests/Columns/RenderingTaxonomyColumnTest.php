@@ -1,5 +1,5 @@
 <?php
-use StephenHarris\Guise\Taxonomy_Column_Controller;
+use StephenHarris\Guise\Columns\Taxonomy_Column_Controller;
 use MonkeryTestCase\BrainMonkeyWpTestCase;
 use Brain\Monkey\Functions;
 
@@ -12,13 +12,13 @@ class RenderingTaxonomyColumnTest extends BrainMonkeyWpTestCase {
     function setUp(){
         parent::setUp();
 
-        $mockView = $this->getMockBuilder('\StephenHarris\Guise\Taxonomy_Column_View')->getMock();
+        $mockView = $this->getMockBuilder('\StephenHarris\Guise\Columns\Taxonomy_Column_View')->getMock();
         $mockView->method('render')->will($this->returnCallback(function( $term ){
             return 'Term ID: ' . $term->term_id;
         }));
         $this->columnName = spl_object_hash( $mockView );
 
-        $anotherMockView = $this->getMockBuilder('\StephenHarris\Guise\Taxonomy_Column_View')->getMock();
+        $anotherMockView = $this->getMockBuilder('\StephenHarris\Guise\Columns\Taxonomy_Column_View')->getMock();
         $anotherMockView->method('render')->will($this->returnValue('notthis'));
         $this->anotherColumnName = spl_object_hash( $anotherMockView );
 

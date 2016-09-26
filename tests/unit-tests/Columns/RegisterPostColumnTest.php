@@ -1,5 +1,5 @@
 <?php
-use StephenHarris\Guise\Post_Type_Column_Controller;
+use StephenHarris\Guise\Columns\Post_Type_Column_Controller;
 use MonkeryTestCase\BrainMonkeyWpTestCase;
 use Brain\Monkey\WP\Actions;
 use Brain\Monkey\WP\Filters;
@@ -8,7 +8,7 @@ class RegisterPostColumnTest extends BrainMonkeyWpTestCase {
 
     function testRegisterPostTypeColumn() {
 
-        $mockView = $this->getMockBuilder('\StephenHarris\Guise\Post_Type_Column_View')->getMock();
+        $mockView = $this->getMockBuilder('\StephenHarris\Guise\Columns\Post_Type_Column_View')->getMock();
 
         $controller = new Post_Type_Column_Controller();
 
@@ -23,7 +23,7 @@ class RegisterPostColumnTest extends BrainMonkeyWpTestCase {
 
     function testRegisterPostTypeColumnMultipleTimes() {
 
-        $mockView = $this->getMockBuilder('\StephenHarris\Guise\Post_Type_Column_View')->getMock();
+        $mockView = $this->getMockBuilder('\StephenHarris\Guise\Columns\Post_Type_Column_View')->getMock();
 
         $controller = new Post_Type_Column_Controller();
 
@@ -40,7 +40,7 @@ class RegisterPostColumnTest extends BrainMonkeyWpTestCase {
 
     function testRegisterPostTypeColumnMultipleTimesDifferentPostType() {
 
-        $mockView = $this->getMockBuilder('\StephenHarris\Guise\Post_Type_Column_View')->getMock();
+        $mockView = $this->getMockBuilder('\StephenHarris\Guise\Columns\Post_Type_Column_View')->getMock();
 
         $controller = new Post_Type_Column_Controller();
 
@@ -61,7 +61,7 @@ class RegisterPostColumnTest extends BrainMonkeyWpTestCase {
 
     function testRegisterSortablePostTypeColumn() {
 
-        $sortablePostView = $this->getMockBuilder('\StephenHarris\Guise\Sortable_Post_Type_Column_View')->getMock();
+        $sortablePostView = $this->getMockBuilder('\StephenHarris\Guise\Columns\Sortable_Post_Type_Column_View')->getMock();
 
         $controller = new Post_Type_Column_Controller();
 

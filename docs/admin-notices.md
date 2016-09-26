@@ -6,8 +6,8 @@ and attach it to a `Notice_Controller` instance. (You may want to store the
 latter in a dependency container or service locator).
 
 ```
-use StephenHarris\Guise\Error_Notice_View;
-use StephenHarris\Guise\Notice_Controller;
+use StephenHarris\Guise\Notices\Error_Notice_View;
+use StephenHarris\Guise\Notices\Notice_Controller;
 
 $notice_controller = new Notice_Controller();
 $notice = new Error_Notice_View( '<p>This is an error message</p>' );
@@ -23,9 +23,9 @@ There are also `Info_Notice_View` and `Success_Notice_View` classes available to
 To make your notice dismissible, you can use the `Dismissible_Notice_Decorator`
 
 ```
-use StephenHarris\Guise\Success_Notice_View;
-use StephenHarris\Guise\Dismissible_Notice_Decorator;
-use StephenHarris\Guise\Notice_Controller;
+use StephenHarris\Guise\Notices\Success_Notice_View;
+use StephenHarris\Guise\Notices\Dismissible_Notice_Decorator;
+use StephenHarris\Guise\Notices\Notice_Controller;
 
 $notice_controller = new Notice_Controller();
 $notice = new Error_Notice_View( '<p>This is a dismissible success message</p>' );

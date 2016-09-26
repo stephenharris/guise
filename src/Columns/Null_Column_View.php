@@ -1,6 +1,6 @@
 <?php
 
-namespace StephenHarris\Guise;
+namespace StephenHarris\Guise\Columns;
 
 
 class Null_Column_View implements Column_View {
