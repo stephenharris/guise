@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <title></title>
+
+        <link rel="stylesheet" href="/css/bootstrap.min.css">
+        <link rel="stylesheet" href="/css/font-awesome.min.css">
+        <link rel="stylesheet" href="/css/highlight.dark.css">
+        <link rel="stylesheet" href="/css/main.css">
+    </head>
+    <body>
+
+        <header class="navbar navbar-default navbar-fixed-top">
+
+            <a class="navbar-brand" href="/">
+                The title
+                <small class="hidden-xs hidden-sm">
+                    This is the default subtitle!
+                </small>
+            </a>
+
+            
+        </header>
+
+        <main class="container">
+            <div class="row">
+
+                
+                <section id="content" class="col-sm-12">
+                    <h1 id="admin-notices">Admin notices</h1>
+<p>To create an error message simply create a <code>Error_Notice_View</code> instance and
+and attach it to a <code>Notice_Controller</code> instance. (You may want to store the
+latter in a dependency container or service locator).</p>
+<pre><code>use StephenHarris\Guise\Notices\Error_Notice_View;
+use StephenHarris\Guise\Notices\Notice_Controller;
+
+$notice_controller = new Notice_Controller();
+$notice = new Error_Notice_View( '&lt;p&gt;This is an error message&lt;/p&gt;' );
+
+$notice_controller-&gt;register( 'my-notice-id', $notice );</code></pre>
+<p>There are also <code>Info_Notice_View</code> and <code>Success_Notice_View</code> classes available too.</p>
+<h2 id="dismissible-notices">Dismissible notices</h2>
+<p>To make your notice dismissible, you can use the <code>Dismissible_Notice_Decorator</code></p>
+<pre><code>use StephenHarris\Guise\Notices\Success_Notice_View;
+use StephenHarris\Guise\Notices\Dismissible_Notice_Decorator;
+use StephenHarris\Guise\Notices\Notice_Controller;
+
+$notice_controller = new Notice_Controller();
+$notice = new Error_Notice_View( '&lt;p&gt;This is a dismissible success message&lt;/p&gt;' );
+$dismissible_notice = new Dismissible_Notice_Decorator( $notice );
+
+$notice_controller-&gt;register( 'my-notice-id', $dismissible_notice );</code></pre>
+                </section>
+
+            </div>
+        </main>
+
+        <footer>
+            <div class="container">
+                <p class="text-muted">
+                    website generated with <a href="http://couscous.io" title="Markdown website generator">Couscous</a>
+                </p>
+            </div>
+        </footer>
+
+        <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+        <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+        <script src="//yastatic.net/highlightjs/8.2/highlight.min.js"></script>
+
+        <script>
+            $(function() {
+                $("section>h1").wrap('<div class="page-header" />');
+                // Syntax highlighting
+                hljs.initHighlightingOnLoad();
+            });
+        </script>
+
+    </body>
+</html>
