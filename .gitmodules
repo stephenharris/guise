@@ -1,4 +1,0 @@
-[submodule "docs"]
-	path = docs
-	url = git@github.com:stephenharris/guise.git
-	branch = gh-pages
