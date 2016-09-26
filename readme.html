@@ -18,18 +18,31 @@
             <a class="navbar-brand" href="https://stephenharris.github.io/guise/">
                 Guise
                 <small class="hidden-xs hidden-sm">
-                    This is the default subtitle!
+                    Framework for modifying the WordPress UI
                 </small>
             </a>
 
             
         </header>
 
-        <main class="container">
+        <main class="container-fluid">
             <div class="row">
 
                 
-                <section id="content" class="col-sm-12">
+                    <nav id="sidebar" class="col-sm-3 col-lg-2" role="navigation">
+
+                        <ul class="nav nav-pills nav-stacked">
+                                                            <li class="">
+                                    <a href="https://stephenharris.github.io/guise/admin-notices.html">
+                                        Creating admin notices
+                                    </a>
+                                </li>
+                                                    </ul>
+
+                    </nav>
+
+                
+                <section id="content" class="col-sm-offset-3 col-lg-offset-2 col-sm-9 col-lg-10">
                     <h1 id="guise">Guise</h1>
 <p>Guise is a WordPress framework for modifying the UI, it handles the behind-the-scenes
 interactions with WordPress so that you can focus on writing OOP code.</p>
@@ -93,7 +106,7 @@ My_Sortable_Foo_Bar_Column_View implements Post_Type_Column_View, Sortable_Colum
         </main>
 
         <footer>
-            <div class="container">
+            <div class="container-fluid">
                 <p class="text-muted">
                     website generated with <a href="http://couscous.io" title="Markdown website generator">Couscous</a>
                 </p>

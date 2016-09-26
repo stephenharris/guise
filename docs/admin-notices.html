@@ -18,18 +18,31 @@
             <a class="navbar-brand" href="https://stephenharris.github.io/guise/">
                 Guise
                 <small class="hidden-xs hidden-sm">
-                    This is the default subtitle!
+                    Framework for modifying the WordPress UI
                 </small>
             </a>
 
             
         </header>
 
-        <main class="container">
+        <main class="container-fluid">
             <div class="row">
 
                 
-                <section id="content" class="col-sm-12">
+                    <nav id="sidebar" class="col-sm-3 col-lg-2" role="navigation">
+
+                        <ul class="nav nav-pills nav-stacked">
+                                                            <li class="">
+                                    <a href="https://stephenharris.github.io/guise/admin-notices.html">
+                                        Creating admin notices
+                                    </a>
+                                </li>
+                                                    </ul>
+
+                    </nav>
+
+                
+                <section id="content" class="col-sm-offset-3 col-lg-offset-2 col-sm-9 col-lg-10">
                     <h1 id="admin-notices">Admin notices</h1>
 <p>To create an error message simply create a <code>Error_Notice_View</code> instance and
 and attach it to a <code>Notice_Controller</code> instance. (You may want to store the
@@ -59,7 +72,7 @@ $notice_controller-&gt;register( 'my-notice-id', $dismissible_notice );</code></
         </main>
 
         <footer>
-            <div class="container">
+            <div class="container-fluid">
                 <p class="text-muted">
                     website generated with <a href="http://couscous.io" title="Markdown website generator">Couscous</a>
                 </p>
