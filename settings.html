@@ -62,8 +62,8 @@ This can be core WordPress settings page, or one added by yourself or a third-pa
 <li>A unique identifier for the setting (this equates to teh setting name passed in <code>get_option()</code></li>
 <li>A section identifer to add the setting to</li>
 <li>A <code>Settings\View</code> instance, to render the setting field</li>
-<li>
-<p>An optional <code>Respect\Validation\Validatable</code> (defaults to <code>null</code>: no validation) to allow add validation constraints. (Guise uses <a href="https://github.com/Respect/Validation">Validation</a> version 0.9).</p>
+<li>An optional <code>Respect\Validation\Validatable</code> (defaults to <code>null</code>: no validation) to allow add validation constraints. (Guise uses <a href="https://github.com/Respect/Validation">Validation</a> version 0.9).</li>
+</ol>
 <h2 id="registering-a-section">Registering a section</h2>
 <p>Let's start with registering a section. First we need page to add the
 section to. You can create a new instance</p>
@@ -84,54 +84,56 @@ class.</p>
 <pre><code>use StephenHarris\Guise\Settings\Views\BaseSection;
 
 $section_view = new BaseSection( 'My section title', 'My section description' );
-$page-&gt;register_section( 'my-section-id', $section_view );
+$page-&gt;register_section( 'my-section-id', $section_view );</code></pre>
+<h2 id="adding-a-setting-to-our-section">Adding a setting to our section</h2>
+<p>To register a setting first create an instance implementing the <code>StephenHarris\Guise\Settings\Views\Setting</code>
+interface. There are some default classes you can use such as <code>Input</code>, <code>Checkbox</code>, <code>MultipleCheckbox</code>
+and <code>Select</code> - please contribute more!</p>
+<p>The responsibilities of the settings view are simple: </p>
+<ul>
+<li>It must render a label</li>
+<li>And interpret the stored database value to which it belongs (and render
+the setting field accordingly)</li>
+</ul>
+<p>You register the setting by passing to <code>StephenHarris\Guise\Settings\Page::register_setting()</code>
+(see <em>Register a section</em> section on obaining <code>Page</code> instance):</p>
+<ul>
+<li>The ID of the setting you are adding</li>
+<li>The ID of the section to add the setting to</li>
+<li>The setting view (<code>StephenHarris\Guise\Settings\Views\Setting</code>)</li>
+<li>An optional <code>Respect\Validation\Validatable</code> instance (see <em>Validating the settings</em>
+below).</li>
+</ul>
+<pre><code>use StephenHarris\Guise\Settings\Views\Input;
+use StephenHarris\Guise\Settings\Views\Checkbox;
 
-## Adding a setting to our section
+$text_field = new Input( 'my-text-field', 'My text field' );
+$page-&gt;register_setting( 'my-text-field', 'my-section-id', $text_field );
 
-To register a setting first create an instance implementing the `StephenHarris\Guise\Settings\Views\Setting`
-interface. There are some default classes you can use such as `Input`, `Checkbox`, `MultipleCheckbox`
-and `Select` - please contribute more!
-
-The responsibilities of the settings view are simple: 
-
-- It must render a label
-- And interpret the stored database value to which it belongs (and render 
-the setting field accordingly)
-
-You register the setting by passing to `StephenHarris\Guise\Settings\Page::register_setting()`
-(see *Register a section* section on obaining `Page` instance):
-
-- The ID of the setting you are adding
-- The ID of the section to add the setting to
-- The setting view (`StephenHarris\Guise\Settings\Views\Setting`)
-- An optional `Respect\Validation\Validatable` instance (see *Validating the settings*
-below).
-</code></pre>
-<p>use StephenHarris\Guise\Settings\Views\Input;
-use StephenHarris\Guise\Settings\Views\Checkbox;</p>
-<p>$text_field = new Input( 'my-text-field', 'My text field' );
-$page-&gt;register_setting( 'my-text-field', 'my-section-id', $text_field );</p>
-<p>$checkbox = new Checkbox( 'my-checkbox', 'My checkbox', 'checked-value' );
-$page-&gt;register_setting( 'my-checkbox', 'my-section-id', $checkbox );</p>
-<pre><code>
-## Validating the settings (optional)
-
-Guise allows you to use the [Validation](https://github.com/Respect/Validation)
-library to add constraints. 
-
-These validations are passed as fourth argument to `StephenHarris\Guise\Settings\Page::register_setting()`.
-If the user-entered value fails these validation checks, the setting is not updated and an error message is displayed.
-</code></pre>
-<p>use StephenHarris\Guise\Settings\Page;
+$checkbox = new Checkbox( 'my-checkbox', 'My checkbox', 'checked-value' );
+$page-&gt;register_setting( 'my-checkbox', 'my-section-id', $checkbox );</code></pre>
+<h2 id="validating-the-settings-optional">Validating the settings (optional)</h2>
+<p>Guise allows you to use the <a href="https://github.com/Respect/Validation">Validation</a>
+library to add constraints. </p>
+<p>These validations are passed as fourth argument to <code>StephenHarris\Guise\Settings\Page::register_setting()</code>.
+If the user-entered value fails these validation checks, the setting is not updated and an error message is displayed.</p>
+<pre><code>use StephenHarris\Guise\Settings\Page;
 use StephenHarris\Guise\Settings\Views\Input;
-use Respect\Validation\Rules\Email;</p>
-<p>$page = Page::get_by_id('discussion'); //Discussion settings page
+use Respect\Validation\Rules\Email;
+
+$page = Page::get_by_id('discussion'); //Discussion settings page
 $text_field = new Input( 'my-text-field', 'My text field' ); //Our setting view
-$validation = new Email(); //Add validation for checking an e-mail was provdied</p>
-<p>$page-&gt;register_setting( 'my-text-field', 'my-section-id', $text_field, $validation );</p>
-<pre><code></code></pre>
-</li>
+$validation = new Email(); //Add validation for checking an e-mail was provdied
+
+$page-&gt;register_setting( 'my-text-field', 'my-section-id', $text_field, $validation );</code></pre>
+<h2 id="available-setting-views">Available setting views</h2>
+<ol>
+<li><code>Input</code> (text field)</li>
+<li><code>Checkbox</code> (single checkbox)</li>
+<li><code>MultipleCheckbox</code> (list of one or more checkboxes)</li>
+<li><code>Select</code> (dropdown field)</li>
 </ol>
+<p><strong>Need more? Please contribute!</strong></p>
                 </section>
 
             </div>

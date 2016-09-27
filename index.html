@@ -54,61 +54,41 @@
                 
                 <section id="content" class="col-sm-offset-3 col-lg-offset-2 col-sm-9 col-lg-10">
                     <h1 id="guise">Guise</h1>
-<p>Guise is a WordPress framework for modifying the UI, it handles the behind-the-scenes
+<p>Guise is a lightweight WordPress framework for modifying the UI, it handles the behind-the-scenes
 interactions with WordPress so that you can focus on writing OOP code.</p>
 <p><strong>This is early on in development, contributions are welcome - see the wish list below!</strong></p>
-<h2 id="example">Example</h2>
-<h2 id="adding-a-column-to-a-post-type">Adding a column to a post type</h2>
-<p>To add a column to the 'foobar' post type, first define your column view
-it must implement the <code>Post_Type_Column_View</code> interface.</p>
-<pre><code>use StephenHarris\Guise\Columns\Post_Type_Column_View;
-
-My_Foo_Bar_Column_View implements Post_Type_Column_View {
-
-    function label() {
-        return 'My column header';
-    }
-
-    function render( WP_Post $post ) { 
-        return sprintf( 'This is the cell for post %d', $post-&gt;ID );
-    }
-}</code></pre>
-<p>Then register your column:</p>
-<pre><code>$column_view = new My_Foo_Bar_Column_View();
-$controller new Post_Type_Column_Controller()
-
-$controller-&gt;register( $column_view, 'foo-bar' );</code></pre>
-<p>You can also specify the index you want the column to appear in:</p>
-<pre><code>//Adds to the second index (i.e. it appears as the third column)
-$controller-&gt;register( $column_view, 'foobar', 2 );</code></pre>
-<p>Please note that later columns can shift it out of place.</p>
-<h2 id="adding-a-sortable-to-a-post-type">Adding a sortable to a post type</h2>
-<p>To add a sortable column your column view class must implement the
-<code>Post_Type_Column_View</code> and <code>Sortable_Column_View</code> interfaces.</p>
-<pre><code>use StephenHarris\Guise\Columns\Post_Type_Column_View;
-use StephenHarris\Guise\Columns\Sortable_Column_View;
-
-My_Sortable_Foo_Bar_Column_View implements Post_Type_Column_View, Sortable_Column_View {
-
-    function label() {
-        return 'A sortable column';
-    }
-
-    function render( WP_Post $post ) { 
-        return sprintf( 'This is the cell for post %d', $post-&gt;ID );
-    }
-
-    function sort_by() {
-        //Return the value of the orderby query parameter
-        return 'query-variable';
-    }
-}</code></pre>
-<h2 id="bug-or-feature-request">Bug or feature request?</h2>
+<h2 id="what-is-guise-why-should-i-use-it">What is Guise, why should I use it?</h2>
+<p>WordPress is procedurally written. This can make interacting with it
+in an object-oriented manner clunky. It is also an event-based CMS with
+various parts of the UI modifiable by various different hooks; remembering
+which hooks to use and setting up callbacks for them is finickity and often
+involves repeating the procedure multiple times for your different objects.</p>
+<p>Guise is a framework which focuses on making interacting with the WordPress
+UI in an object-oriented ways easier by acting as a thin layer between WordPress
+and your code. It works to an interface, so the <em>implementation</em> of the
+user interface is entirely down to your code, but Guise handles the
+behind-the-scenes interactions with WordPress.</p>
+<p>Guise also provides a number of concreate classes (such as <code>Notice_View</code>
+implementations) which cater for the majority of use-cases.</p>
+<h2 id="health-warning">Health warning</h2>
+<p>This framework is intended for composer-managed WordPress sites. You shouldn't
+include it in a plug-in for public distribution, as this will likely break
+sites which have more than one plug-in requiring it.</p>
+<p>If you want to include it in your plug-in, I'd advise you to change the
+namespaces, but beaware that this framework also makes uses of other third-party
+libraries.</p>
+<h2 id="requirements">Requirements</h2>
+<p>PHP 5.4+
+Composer to install</p>
+<h2 id="license">License</h2>
+<p>Guise is open source and released under MIT or GPLv2+ license at your preference.</p>
+<h2 id="questions-bugs-feature-requests">Questions? Bugs? Feature requests?</h2>
 <p>Please open an <a href="https://github.com/stephenharris/guise/issues">issue</a>!</p>
 <h2 id="wishlist">Wishlist</h2>
 <ul>
 <li>Metaboxes</li>
-<li>Settings</li>
+<li>More setting views</li>
+<li>Support for columsn for all types (Users, Comments, etc)</li>
 </ul>
                 </section>
 
