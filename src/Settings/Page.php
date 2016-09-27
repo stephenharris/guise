@@ -66,7 +66,8 @@ class Page {
     private function register_sections_with_wp() {
         if ( $this->sections ) {
             foreach ( $this->sections as $id => $section ) {
-               add_settings_section( $id, $section['view']->label(), array( $section['view'], '_print' ), $this->page );
+                $printable_section_view = new Views\SectionPrintDecorator( $section['view'] );
+                add_settings_section( $id, $section['view']->label(), array( $printable_section_view, '_print' ), $this->page );
             }
         }
     }
