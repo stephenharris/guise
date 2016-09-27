@@ -5,6 +5,42 @@ interactions with WordPress so that you can focus on writing OOP code.
 
 **This is early on in development, contributions are welcome - see the wish list below!**
 
+## Documentation
+
+The documentation for using Guise can be found here:  https://stephenharris.github.io/guise/
+
+## Installation
+
+Guise is not yet published on Composer, so you need to add the repository manually:
+
+```
+{
+    ...
+    "repositories": [
+        ...
+        {
+            "type": "vcs",
+            "url": "https://github.com/stephenharris/guise"
+        }
+    ],
+    
+    ...
+    
+    "require": {
+      "stephenharris/guise": "0.*"
+    },
+
+}
+```
+
+Then run `composer update`.
+
+You will then need to load Composer's auto-loader in your application:
+
+```
+require 'vendor/autoload.php';
+```
+
 
 ## Example
 

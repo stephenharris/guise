@@ -1,7 +1,22 @@
 baseUrl: https://stephenharris.github.io/guise
 title: Guise
+subTitle: Framework for modifying the WordPress UI
 
-# List of directories to include in the processing (by default it's empty, so all markdown files are parsed)
-# Paths are relative to the optional source path given when generating the website, repository root by default
 include:
     - docs
+
+# The left menu bar
+menu:
+    items:
+        installation:
+            text: Installation
+            relativeUrl: install.html
+        admin-notices:
+            text: Creating admin notices
+            relativeUrl: admin-notices.html
+        columns:
+            text: Adding columns
+            relativeUrl: columns.html
+        settings:
+            text: Adding settings
+            relativeUrl: settings.html
