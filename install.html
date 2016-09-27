@@ -58,47 +58,28 @@
 
                 
                 <section id="content" class="col-sm-offset-3 col-lg-offset-2 col-sm-9 col-lg-10">
-                    <h1 id="guise">Guise</h1>
-<p>Guise is a lightweight WordPress framework for modifying the UI, it handles the behind-the-scenes
-interactions with WordPress so that you can focus on writing OOP code.</p>
-<p><strong>This is early on in development, contributions are welcome - see the wish list below!</strong></p>
-<h2 id="what-is-guise-why-should-i-use-it">What is Guise, why should I use it?</h2>
-<p>WordPress is procedurally written. This can make interacting with it
-in an object-oriented manner clunky. It is also an event-based CMS with
-various parts of the UI modifiable by various different hooks; remembering
-which hooks to use and setting up callbacks for them is finickity and often
-involves repeating the procedure multiple times for your different objects.</p>
-<p>Guise is a framework which focuses on making interacting with the WordPress
-UI in an object-oriented ways easier by acting as a thin layer between WordPress
-and your code. It works to an interface, so the <em>implementation</em> of the
-user interface is entirely down to your code, but Guise handles the
-behind-the-scenes interactions with WordPress.</p>
-<p>Guise also provides a number of concreate classes (such as <code>Notice_View</code>
-implementations) which cater for the majority of use-cases.</p>
-<h2 id="installation">Installation</h2>
-<p>See <a href="install.html">Installation</a>.</p>
-<h2 id="health-warning">Health warning</h2>
-<p>This framework is intended for composer-managed WordPress sites. You shouldn't
-include it in a plug-in for public distribution, as this will likely break
-sites which have more than one plug-in requiring it.</p>
-<p>If you want to include it in your plug-in, I'd advise you to change the
-namespaces, but beaware that this framework also makes uses of other third-party
-libraries.</p>
-<h2 id="requirements">Requirements</h2>
-<ul>
-<li>PHP 5.4+</li>
-<li>Composer to install</li>
-</ul>
-<h2 id="license">License</h2>
-<p>Guise is open source and released under MIT or GPLv2+ license at your preference.</p>
-<h2 id="questions-bugs-feature-requests">Questions? Bugs? Feature requests?</h2>
-<p>Please open an <a href="https://github.com/stephenharris/guise/issues">issue</a>!</p>
-<h2 id="wishlist">Wishlist</h2>
-<ul>
-<li>Metaboxes</li>
-<li>More setting views</li>
-<li>Support for columsn for all types (Users, Comments, etc)</li>
-</ul>
+                    <h2 id="installation">Installation</h2>
+<p>Guise is not yet published on Composer, so you need to add the repository manually:</p>
+<pre><code>{
+    ...
+    "repositories": [
+        ...
+        {
+            "type": "vcs",
+            "url": "https://github.com/stephenharris/guise"
+        }
+    ],
+
+    ...
+
+    "require": {
+      "stephenharris/guise": "0.*"
+    },
+
+}</code></pre>
+<p>Then run <code>composer update</code>.</p>
+<p>You will then need to load Composer's auto-loader in your application:</p>
+<pre><code>require 'vendor/autoload.php';</code></pre>
                 </section>
 
             </div>
