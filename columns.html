@@ -53,63 +53,90 @@
 
                 
                 <section id="content" class="col-sm-offset-3 col-lg-offset-2 col-sm-9 col-lg-10">
-                    <h1 id="guise">Guise</h1>
-<p>Guise is a WordPress framework for modifying the UI, it handles the behind-the-scenes
-interactions with WordPress so that you can focus on writing OOP code.</p>
-<p><strong>This is early on in development, contributions are welcome - see the wish list below!</strong></p>
-<h2 id="example">Example</h2>
-<h2 id="adding-a-column-to-a-post-type">Adding a column to a post type</h2>
-<p>To add a column to the 'foobar' post type, first define your column view
-it must implement the <code>Post_Type_Column_View</code> interface.</p>
+                    <h1 id="columns">Columns</h1>
+<p><em>Currently only post type and taxonomy terms are supported</em></p>
+<p>WordPress uses alot of tables in its admin interfaces (e.g. list posts, pages,
+categories, users etc). Guise lets you easily add a column to these tables by
+simply implementing the <code>Column_View</code> interface and registering it with the
+appropriate controller.</p>
+<p>The set up is the same for post types, taxonomies and users. The only difference
+are the names.</p>
+<h2 id="adding-a-column-to-a-post-types-admin-table">Adding a column to a post type's admin table</h2>
+<p>First define your column view which must implement the <code>Post_Type_Column_View</code> interface
+(defining the <code>label()</code> and the <code>render()</code> methods:</p>
 <pre><code>use StephenHarris\Guise\Columns\Post_Type_Column_View;
 
-My_Foo_Bar_Column_View implements Post_Type_Column_View {
+class Rating_Column_View implements Post_Type_Column_View {
 
-    function label() {
-        return 'My column header';
+    /**
+     * Renders the column's header
+     */
+    public function label() {
+        return 'My column label';
     }
 
-    function render( WP_Post $post ) { 
-        return sprintf( 'This is the cell for post %d', $post-&gt;ID );
+    /**
+     * Renders the content of the column for the passed row object
+     */
+    public function render( WP_Post $post ) {
+
+        $rating = get_post_meta( $post-&gt;ID, '_rating', true );
+
+        if ( ! $rating ) {
+            return 'Unrated';
+        }
+
+        return sprintf( '%f out of 10 starts', $rating );
     }
+
 }</code></pre>
-<p>Then register your column:</p>
-<pre><code>$column_view = new My_Foo_Bar_Column_View();
-$controller new Post_Type_Column_Controller()
+<p>Then add add your columns to an instance of <code>Post_Type_Column_Controller</code> (you
+may want to store an instance of this in a dependency injection container or a
+service locator).</p>
+<pre><code>use StephenHarris\Guise\Columns\Post_Type_Column_Controller;
 
-$controller-&gt;register( $column_view, 'foo-bar' );</code></pre>
+$post_type_columns = new Post_Type_Column_Controller();
+$review_column = new Rating_Column_View();
+
+$post_type_columns-&gt;register( $review_column, 'post' );
+$post_type_columns-&gt;register( $review_column, 'page' );
+$post_type_columns-&gt;register( $review_column, 'custom-post-type' );
+</code></pre>
+<h3 id="adding-the-column-at-a-particular-location">Adding the column at a particular location</h3>
 <p>You can also specify the index you want the column to appear in:</p>
 <pre><code>//Adds to the second index (i.e. it appears as the third column)
 $controller-&gt;register( $column_view, 'foobar', 2 );</code></pre>
 <p>Please note that later columns can shift it out of place.</p>
-<h2 id="adding-a-sortable-to-a-post-type">Adding a sortable to a post type</h2>
-<p>To add a sortable column your column view class must implement the
-<code>Post_Type_Column_View</code> and <code>Sortable_Column_View</code> interfaces.</p>
+<h3 id="making-your-column-sortable">Making your column sortable</h3>
+<p>To add a sortable column your column view class must also implement the
+<code>Sortable_Column_View</code> interface.</p>
 <pre><code>use StephenHarris\Guise\Columns\Post_Type_Column_View;
 use StephenHarris\Guise\Columns\Sortable_Column_View;
 
-My_Sortable_Foo_Bar_Column_View implements Post_Type_Column_View, Sortable_Column_View {
+Rating_Column_View implements Post_Type_Column_View, Sortable_Column_View {
 
-    function label() {
-        return 'A sortable column';
-    }
-
-    function render( WP_Post $post ) { 
-        return sprintf( 'This is the cell for post %d', $post-&gt;ID );
-    }
+    /* ... as above ... */
 
     function sort_by() {
         //Return the value of the orderby query parameter
-        return 'query-variable';
+        return 'rating';
     }
 }</code></pre>
-<h2 id="bug-or-feature-request">Bug or feature request?</h2>
-<p>Please open an <a href="https://github.com/stephenharris/guise/issues">issue</a>!</p>
-<h2 id="wishlist">Wishlist</h2>
+<p><em>You will have to intercept the <code>pre_get_posts</code> query to interpret the 'rating' ordering</em></p>
+<h2 id="adding-a-column-to-a-taxonomys-admin-table">Adding a column to a taxonomy's admin table</h2>
+<p>The procedure for adding a column to a taxonomy admin table is almost identical. The only differences are:</p>
 <ul>
-<li>Metaboxes</li>
-<li>Settings</li>
+<li>Your column view must implement <code>Taxonomy_Column_View</code> (passes a <code>WP_Term</code> object to the <code>render()</code> method), rather than <code>Post_Type_Column_View</code></li>
+<li>Use the <code>Taxonomy_Column_Controller</code> rather than <code>Post_Type_Column_Controller</code>.</li>
+<li>Pass a taxonomy slug as the second argument of <code>Taxonomy_Column_Controller::register()</code> in stead of a post type slug.</li>
 </ul>
+<h2 id="feature-wish-list">Feature wish list</h2>
+<p>Other admin tables that are on the 'wish list': </p>
+<ul>
+<li>Support users table</li>
+<li>Allow views to specify the class attribute fo the column</li>
+</ul>
+<p>Please contribute!</p>
                 </section>
 
             </div>
