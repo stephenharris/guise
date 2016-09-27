@@ -7,6 +7,11 @@ use Brain\Monkey\Functions;
 
 class RegisterSettingTest extends BrainMonkeyWpTestCase {
 
+    function tearDown() {
+        Page::clear();
+        parent::tearDown();
+    }
+
     function testRegisterSetting()
     {
         $mockSettingView = $this->getMockBuilder('\StephenHarris\Guise\Settings\Views\Setting')->getMock();
@@ -26,8 +31,7 @@ class RegisterSettingTest extends BrainMonkeyWpTestCase {
         $mockSectionView = $this->getMockBuilder('\StephenHarris\Guise\Settings\Views\Section')->disableOriginalConstructor()->getMock();
         $mockSectionView->method('label')->will($this->returnValue('Section label'));
 
-        $page = new Page('page-id');
-
+        $page = Page::get_by_id('page-id');
         Actions::expectAdded('admin_init')->once()->with(array($page, '_settings_init'));
 
         $page->register_section('section-id', $mockSectionView );
@@ -39,7 +43,7 @@ class RegisterSettingTest extends BrainMonkeyWpTestCase {
         $mockSettingView->method('label')->will($this->returnValue('Setting label'));
         $mockValidator = $this->getMockBuilder('\Respect\Validation\Validatable')->getMock();
 
-        $page = new Page('page-id');
+        $page = Page::get_by_id('page-id');
         $page->register_setting('setting-id', 'section-id', $mockSettingView, $mockValidator );
 
         Functions::expect('register_setting')->once()->with( 'page-id', 'setting-id' );
@@ -66,13 +70,13 @@ class RegisterSettingTest extends BrainMonkeyWpTestCase {
         $mockSectionView = $this->getMockBuilder('\StephenHarris\Guise\Settings\Views\Section')->disableOriginalConstructor()->getMock();
         $mockSectionView->method('label')->will($this->returnValue('Section label'));
 
-        $page = new Page('page-id');
+        $page = Page::get_by_id('page-id');
         $page->register_section('section-id', $mockSectionView );
 
         Functions::expect('add_settings_section')->once()->with(
             'section-id',
             'Section label',
-            array( $mockSectionView, '_print' ),
+            Mockery::type('callable'),
             'page-id'
         );
 
@@ -91,7 +95,7 @@ class RegisterSettingTest extends BrainMonkeyWpTestCase {
         Functions::expect('add_settings_field');
         Filters::expectAdded('sanitize_option_setting-id');
 
-        $page = new Page('page-id');
+        $page = Page::get_by_id('page-id');
         $page->register_setting('setting-id', 'section-id', $mockSettingView, $mockValidator);
         $page->_settings_init();
 
@@ -108,7 +112,7 @@ class RegisterSettingTest extends BrainMonkeyWpTestCase {
         $mockSettingView = $this->getMockBuilder('\StephenHarris\Guise\Settings\Views\Setting')->getMock();
         $mockValidator = $this->getMockBuilder('\Respect\Validation\Validatable')->getMock();
 
-        $page = new Page('page-id');
+        $page = Page::get_by_id('page-id');
         $page->register_setting('setting-id', 'section-id', $mockSettingView, $mockValidator );
 
         Functions::expect('get_option')->once()->with( 'setting-id' )->andReturn( 'foobar' );

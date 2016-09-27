@@ -9,12 +9,25 @@ class Page {
 
     private $page;
 
+    static private $pages;
+
     private $sections;
 
     private $settings;
 
     function __construct( $page ) {
         $this->page = $page;
+    }
+
+    static function get_by_id( $page ) {
+        if ( ! isset( self::$pages[ $page ] ) ) {
+            self::$pages[ $page ] = new Page( $page );
+        }
+        return self::$pages[ $page ];
+    }
+
+    static function clear() {
+        self::$pages = array();
     }
 
     public function register_setting( $setting_id, $section_id, Views\Setting $view_class, Validatable $validator ) {
