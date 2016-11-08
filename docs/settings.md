@@ -100,6 +100,18 @@ $validation = new Email(); //Add validation for checking an e-mail was provdied
 $page->register_setting( 'my-text-field', 'my-section-id', $text_field, $validation );
 ```
   
+## Adding a setting description (optional)
+ 
+You can 'decorate' your settings with discriptions as follows:
+
+```
+use StephenHarris\Guise\Settings\Views\Input;
+use StephenHarris\Guise\Settings\Views\DescriptionDecorator;
+
+$text_field = new Input( 'my-text-field', 'My text field' ); //Our setting view
+$text_field = new DescriptionDecorator( $text_field, 'My description text. Accepts <strong>raw</strong> HTML.' );
+```
+ 
  
 ## Available setting views
 
